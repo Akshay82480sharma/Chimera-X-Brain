@@ -6,7 +6,7 @@ build_context() must NEVER read them. Context is built purely from conversation_
 
 from datetime import datetime, timezone, timedelta
 from sqlalchemy import (
-    Column, Integer, String, Text, DateTime, ForeignKey, Boolean, JSON,
+    Column, Integer, String, Text, DateTime, ForeignKey, Boolean, JSON, Float
 )
 from sqlalchemy.orm import relationship
 from app.db.session import Base
