@@ -1,0 +1,220 @@
+<USER_REQUEST>
+# PROJECT BRIEF: Chimera-X — Unified AI Brain + Multi-Provider Router
+
+You are working on **Chimera-X**, a personal AI system with a Next.js frontend and FastAPI backend. Read this entire brief before writing any code. Do not skip ahead between phases.
+
+---
+
+## 🎯 THE CORE PRODUCT IDEA (do not lose this while refactoring)
+
+Chimera-X has ONE persistent "brain" (conversation history + memory + context) that is completely decoupled from WHICH AI model answers at any given moment.
+
+The system must be able to:
+1. Switch between models/providers (Claude, OpenAI, Google Gemini, GLM, local models via Ollama) **mid-conversation** with zero data loss and zero context gaps.
+2. Automatically fall back to a different provider when the current one hits a rate limit or quota error — **without the user noticing**, and without losing any conversational context.
+
+**Golden rule:** The model is a disposable "mouth." The brain (DB) is the only source of truth. Nothing about stored context, memory, or history may ever depend on which model generated it.
+
+```
+[ build_context(conversation_id) ]   ← BRAIN — 100% model-agnostic
+              ↓
+[ router.select_provider(...) ]      ← ROUTER — stateless, real-time decision
+              ↓
+[ litellm.complete(context, provider) ] ← MOUTH — fully disposable
+              ↓
+[ save_message(conversation_id, response, provider_used) ] ← back to BRAIN
+```
+
+If any code you write violates this separation (e.g., context-building logic that checks "if provider == X"), stop and flag it to me before proceeding.
+
+---
+
+## ⚠️ GROUND RULES
+
+1. **Do not add new features until Phase 1 is 100% complete and its verification checklist passes.**
+2. After every phase, run `npm run dev` (frontend) and `uvicorn main:app --reload` (backend) together and confirm zero console errors before moving on.
+3. At the start of every work session, state which Phase/Step you're on and confirm the prior step's checklist passed. Do not skip ahead.
+4. Ask
+<truncated 7686 bytes>
+ats
+- Replace mocked numbers with real DB queries: active models, token usage, request counts, recent fallback events.
+
+### Step 3.3 — Fallback visibility in chat UI
+- Small indicator per message bubble: "via Claude" / "via GLM (auto-fallback)".
+- Optional: toast/notification when a fallback occurs mid-conversation.
+
+### Step 3.4 — History syncing
+- Confirm chat history UI pulls from DB correctly and displays per-message provider metadata accurately.
+
+### Step 3.5 — Fill remaining empty pages
+- `/knowledge` → connect to Phase 2.5 RAG endpoints
+- `/settings` → basic settings persistence
+
+**🛑 STOP. Report back before starting Phase 4.**
+
+---
+
+## PHASE 4: Advanced Features (only after Phases 1–3 are fully stable)
+
+- Proactive quota tracking (switch **before** hitting a 429, using `daily_quota_used` vs `daily_quota_limit`)
+- Prompt library / template management
+- Plugin / tool-calling system
+- Router learning: track fallback frequency and outcomes to auto-tune `priority` over time
+
+---
+
+## EXPLICITLY POSTPONE UNTIL PHASE 4
+- Plugin system
+- UI micro-animations
+- Proactive (pre-emptive) quota switching
+- Embeddings beyond basic RAG v1
+- Any self-learning/auto-tuning routing logic
+
+---
+
+## SESSION START INSTRUCTION (paste this at the top of every new session)
+> "Before writing any code, tell me which Phase and Step number you're working on, and confirm the previous step's verification checklist passed. Do not skip ahead. If any change you're about to make would let context-building logic (`build_context`) know about a specific provider, stop and flag it to me first."
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-07-03T08:26:18+05:30.
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from None to Claude Opus 4.6 (Thinking). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
+
+---
+
+<USER_REQUEST>
+# PROJECT BRIEF: Chimera-X — Unified AI Brain + Multi-Provider Router
+
+You are working on **Chimera-X**, a personal AI system with a Next.js frontend and FastAPI backend. Read this entire brief before writing any code. Do not skip ahead between phases.
+
+---
+
+## 🎯 THE CORE PRODUCT IDEA (do not lose this while refactoring)
+
+Chimera-X has ONE persistent "brain" (conversation history + memory + context) that is completely decoupled from WHICH AI model answers at any given moment.
+
+The system must be able to:
+1. Switch between models/providers (Claude, OpenAI, Google Gemini, GLM, local models via Ollama) **mid-conversation** with zero data loss and zero context gaps.
+2. Automatically fall back to a different provider when the current one hits a rate limit or quota error — **without the user noticing**, and without losing any conversational context.
+
+**Golden rule:** The model is a disposable "mouth." The brain (DB) is the only source of truth. Nothing about stored context, memory, or history may ever depend on which model generated it.
+
+```
+[ build_context(conversation_id) ]   ← BRAIN — 100% model-agnostic
+              ↓
+[ router.select_provider(...) ]      ← ROUTER — stateless, real-time decision
+              ↓
+[ litellm.complete(context, provider) ] ← MOUTH — fully disposable
+              ↓
+[ save_message(conversation_id, response, provider_used) ] ← back to BRAIN
+```
+
+If any code you write violates this separation (e.g., context-building logic that checks "if provider == X"), stop and flag it to me before proceeding.
+
+---
+
+## ⚠️ GROUND RULES
+
+1. **Do not add new features until Phase 1 is 100% complete and its verification checklist passes.**
+2. After every phase, run `npm run dev` (frontend) and `uvicorn main:app --reload` (backend) together and confirm zero console errors before moving on.
+3. At the start of every work session, state which Phase/Step you're on and confirm the prior step's checklist passed. Do not skip ahead.
+4. Ask
+<truncated 7686 bytes>
+ats
+- Replace mocked numbers with real DB queries: active models, token usage, request counts, recent fallback events.
+
+### Step 3.3 — Fallback visibility in chat UI
+- Small indicator per message bubble: "via Claude" / "via GLM (auto-fallback)".
+- Optional: toast/notification when a fallback occurs mid-conversation.
+
+### Step 3.4 — History syncing
+- Confirm chat history UI pulls from DB correctly and displays per-message provider metadata accurately.
+
+### Step 3.5 — Fill remaining empty pages
+- `/knowledge` → connect to Phase 2.5 RAG endpoints
+- `/settings` → basic settings persistence
+
+**🛑 STOP. Report back before starting Phase 4.**
+
+---
+
+## PHASE 4: Advanced Features (only after Phases 1–3 are fully stable)
+
+- Proactive quota tracking (switch **before** hitting a 429, using `daily_quota_used` vs `daily_quota_limit`)
+- Prompt library / template management
+- Plugin / tool-calling system
+- Router learning: track fallback frequency and outcomes to auto-tune `priority` over time
+
+---
+
+## EXPLICITLY POSTPONE UNTIL PHASE 4
+- Plugin system
+- UI micro-animations
+- Proactive (pre-emptive) quota switching
+- Embeddings beyond basic RAG v1
+- Any self-learning/auto-tuning routing logic
+
+---
+
+## SESSION START INSTRUCTION (paste this at the top of every new session)
+> "Before writing any code, tell me which Phase and Step number you're working on, and confirm the previous step's verification checklist passed. Do not skip ahead. If any change you're about to make would let context-building logic (`build_context`) know about a specific provider, stop and flag it to me first."
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-07-03T08:26:18+05:30.
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from None to Claude Opus 4.6 (Thinking). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
+
+---
+
+<USER_REQUEST>
+contuine
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-07-03T08:39:33+05:30.
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from Claude Opus 4.6 (Thinking) to Gemini 3.1 Pro (High). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
+
+---
+
+<USER_REQUEST>
+contuine
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-07-03T08:39:33+05:30.
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from Claude Opus 4.6 (Thinking) to Gemini 3.1 Pro (High). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
+
+---
+
+Comments on artifact URI: file:///c%3A/Users/Aksha/.gemini/antigravity-ide/brain/0834d2f5-7e95-49e5-80ca-75a1c787347e/implementation_plan.md
+
+The user has approved this document.
+
+
+<USER_REQUEST>
+
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-07-03T08:45:06+05:30.
+
+The user's current state is as follows:
+Active Document: d:\New folder\Imp\imps\chimera-x-brain\backend\test_fallback.py (LANGUAGE_PYTHON)
+Cursor is on line: 1
+Other open documents:
+- d:\New folder\Imp\imps\chimera-x-brain\backend\app\api\knowledge.py (LANGUAGE_PYTHON)
+- d:\New folder\Imp\imps\chimera-x-brain\backend\main.py (LANGUAGE_PYTHON)
+- d:\New folder\Imp\imps\chimera-x-brain\backend\test_router.py (LANGUAGE_PYTHON)
+- d:\New folder\Imp\imps\chimera-x-brain\backend\test_fallback.py (LANGUAGE_PYTHON)
+- d:\New folder\Imp\imps\chimera-x-brain\backend\app\core\router.py (LANGUAGE_PYTHON)
+</ADDITIONAL_METADATA>
+
+---
+
